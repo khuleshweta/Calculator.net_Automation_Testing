@@ -1,9 +1,16 @@
 package Mini_Project.Calculator_Testing;
 
 import org.openqa.selenium.By;
+import java.util.List;
+import java.util.ArrayList;
+
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import java.time.Duration;
 public class Calculator_Operations {
 
     public static void main(String[] args) throws InterruptedException {
@@ -127,7 +134,7 @@ public class Calculator_Operations {
         System.out.println("²√8 = " + driver.findElement(By.id("sciOutPut")).getText());
         driver.findElement(By.xpath("//span[text()='AC']")).click();
 
-     // ================= e² =================
+        // ================= e² =================
         driver.findElement(By.xpath("//span[contains(.,'e')]//sup[text()='x']")).click();
         driver.findElement(By.xpath("//span[text()='2']")).click();
         System.out.println("e² = " + driver.findElement(By.id("sciOutPut")).getText());
@@ -260,7 +267,94 @@ public class Calculator_Operations {
         driver.findElement(By.xpath("//span[text()='RND']")).click();
         System.out.println("RND Result = " + driver.findElement(By.id("sciOutPut")).getText());
         driver.findElement(By.xpath("//span[text()='AC']")).click();
-        // Close Browser
+
+        // ================= IMPORTANT FIX: RESET PAGE =================
+        driver.get("https://www.calculator.net/");
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body")));
+
+        Thread.sleep(2000);
+
+        // ================= GET ALL LINKS =================
+        List<WebElement> links = driver.findElements(By.xpath("//ul[@class='hl']//a"));
+
+        System.out.println("Total Links Found: " + links.size());
+
+        // ================= CLICK EACH LINK =================
+        for (int i = 0; i < links.size(); i++) {
+
+            // re-fetch elements to avoid stale element error
+            links = driver.findElements(By.xpath("//ul[@class='hl']//a"));
+
+            WebElement link = links.get(i);
+
+            String name = link.getText();
+            System.out.println("Clicking: " + name);
+
+            try {
+                link.click();
+
+                wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body")));
+
+                Thread.sleep(1500);
+
+                // go back to homepage again
+                driver.get("https://www.calculator.net/");
+
+                Thread.sleep(2000);
+
+            } catch (Exception e) {
+                System.out.println("FAILED: " + name);
+            }
+        }
+
+     // ================= FOOTER LINK TEST =================
+
+     // Open homepage
+     driver.get("https://www.calculator.net/");
+
+     Thread.sleep(2000);
+
+     // Get all footer links
+     List<WebElement> footerLinks = driver.findElements(
+             By.xpath("//div[@id='footernav']//a"));
+
+     System.out.println("Total Footer Links: " + footerLinks.size());
+
+     // Click each footer link
+     for (int i = 0; i < footerLinks.size(); i++) {
+
+         // Re-fetch elements every loop
+         footerLinks = driver.findElements(
+                 By.xpath("//div[@id='footernav']//a"));
+
+         WebElement link = footerLinks.get(i);
+
+         String linkName = link.getText();
+
+         System.out.println("Clicking Footer Link: " + linkName);
+
+         try {
+
+             link.click();
+
+             Thread.sleep(2000);
+
+             System.out.println(linkName + " --> OPENED SUCCESSFULLY");
+
+             // Go back to homepage
+             driver.get("https://www.calculator.net/");
+
+             Thread.sleep(2000);
+
+         } catch (Exception e) {
+
+             System.out.println(linkName + " --> FAILED TO OPEN");
+         }
+     }
         driver.quit();
     }
 }
