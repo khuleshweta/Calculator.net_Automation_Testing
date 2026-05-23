@@ -36,28 +36,64 @@ public class Calculator_Operations {
 
         // ================= SUBTRACTION =================
         driver.findElement(By.xpath("//span[text()='9']")).click();
+        driver.findElement(By.xpath("//span[text()='0']")).click();
+
         driver.findElement(By.xpath("//span[@onclick=\"r('-')\"]")).click();
+
         driver.findElement(By.xpath("//span[text()='4']")).click();
+        driver.findElement(By.xpath("//span[text()='0']")).click();
+
         driver.findElement(By.xpath("//span[text()='=']")).click();
-        System.out.println("9 - 4 = " + driver.findElement(By.id("sciOutPut")).getText());
+
+        String sub = driver.findElement(By.id("sciOutPut")).getText().trim();
+
+        System.out.println("90 - 40 = " + sub);
+
         driver.findElement(By.xpath("//span[text()='AC']")).click();
+
 
         // ================= MULTIPLICATION =================
+
         driver.findElement(By.xpath("//span[text()='5']")).click();
+        driver.findElement(By.xpath("//span[text()='0']")).click();
+        driver.findElement(By.xpath("//span[text()='0']")).click();
+
         driver.findElement(By.xpath("//span[text()='×']")).click();
+
         driver.findElement(By.xpath("//span[text()='6']")).click();
+        driver.findElement(By.xpath("//span[text()='0']")).click();
+        driver.findElement(By.xpath("//span[text()='0']")).click();
+
         driver.findElement(By.xpath("//span[text()='=']")).click();
-        System.out.println("5 × 6 = " + driver.findElement(By.id("sciOutPut")).getText());
+
+        String mul = driver.findElement(By.id("sciOutPut")).getText().trim();
+
+        System.out.println("500 × 600 = " + mul);
+
         driver.findElement(By.xpath("//span[text()='AC']")).click();
+
 
         // ================= DIVISION =================
-        driver.findElement(By.xpath("//span[text()='8']")).click();
-        driver.findElement(By.xpath("//span[@onclick=\"r('/')\"]")).click();
-        driver.findElement(By.xpath("//span[text()='2']")).click();
-        driver.findElement(By.xpath("//span[text()='=']")).click();
-        System.out.println("8 / 2 = " + driver.findElement(By.id("sciOutPut")).getText());
-        driver.findElement(By.xpath("//span[text()='AC']")).click();
 
+        driver.findElement(By.xpath("//span[text()='8']")).click();
+        driver.findElement(By.xpath("//span[text()='5']")).click();
+        driver.findElement(By.xpath("//span[text()='2']")).click();
+        driver.findElement(By.xpath("//span[text()='1']")).click();
+
+        driver.findElement(By.xpath("//span[@onclick=\"r('/')\"]")).click();
+
+        driver.findElement(By.xpath("//span[text()='1']")).click();
+        driver.findElement(By.xpath("//span[text()='2']")).click();
+        driver.findElement(By.xpath("//span[text()='3']")).click();
+        driver.findElement(By.xpath("//span[text()='4']")).click();
+
+        driver.findElement(By.xpath("//span[text()='=']")).click();
+
+        String div = driver.findElement(By.id("sciOutPut")).getText().trim();
+
+        System.out.println("8521 / 1234 = " + div);
+
+        driver.findElement(By.xpath("//span[text()='AC']")).click();
         // ================= SIN =================
         driver.findElement(By.xpath("//span[text()='sin']")).click();
         driver.findElement(By.xpath("//span[text()='9']")).click();
@@ -357,4 +393,4 @@ public class Calculator_Operations {
      }
         driver.quit();
     }
-}
+}     
